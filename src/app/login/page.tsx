@@ -1,6 +1,6 @@
 "use client";
-import LoginMask from "@/components/login-mask";
-import MatrixRain from "@/components/matrix-rain";
+import LoginMask from "@/components/features/login-mask";
+import MatrixRain from "@/components/features/matrix-rain";
 import { Box, Center } from "@chakra-ui/react";
 import { useState } from "react";
 

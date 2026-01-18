@@ -30,7 +30,7 @@ export default function LoginMask({ onAuthSuccess }: { onAuthSuccess: () => void
             onAuthSuccess();
             setTimeout(() => {
                 window.location.href = "/dashboard";
-            }, 1000);
+            }, 0);
         } else {
             setIsError(true);
             setTimeout(() => {
