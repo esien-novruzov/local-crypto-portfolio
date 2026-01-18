@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import { VStack, Text, Spinner, Center, Box, PinInput } from "@chakra-ui/react"
 
-export default function LoginMask() {
+export default function LoginMask({ onAuthSuccess }: { onAuthSuccess: () => void }) {
     const [isMounted, setIsMounted] = useState(false)
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -13,29 +13,28 @@ export default function LoginMask() {
     }, [])
 
     const shakeAnimation = `
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    50% { transform: translateX(8px); }
-    75% { transform: translateX(-8px); }
-    100% { transform: translateX(0); }
-  }
-`;
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+            100% { transform: translateX(0); }
+        }
+    `;
 
     const handleComplete = (e: { value: string[] }) => {
         const pin = e.value.join("");
 
         if (pin === "1234") {
             localStorage.setItem("user_session", "authenticated")
-            window.location.href = "/dashboard";
+            onAuthSuccess();
+            setTimeout(() => {
+                window.location.href = "/dashboard";
+            }, 1000);
         } else {
-            // 1. Immediately start the shake 🫨
             setIsError(true);
-
-            // 2. Schedule the cleanup for AFTER the animation duration (e.g. 400ms)
             setTimeout(() => {
                 setIsError(false);
-                // 3. Only now do we clear the inputs and reset focus
                 setFormKey(prev => prev + 1);
             }, 700);
         }
@@ -47,7 +46,6 @@ export default function LoginMask() {
         <Center h="100vh" w="100vw">
             <VStack
                 p="12"
-                // 🌑 Transparent dark background for better blur visibility
                 bg="rgba(0, 0, 0, 0.2)"
                 backdropFilter="blur(10px)"
                 borderRadius="none"
@@ -55,7 +53,7 @@ export default function LoginMask() {
                 borderColor={isError ? "red.500" : "whiteAlpha.200"}
                 gap="10"
             >
-                <VStack gap="2">
+                <VStack gap="1">
                     <Text color="white" fontWeight="" fontSize="md" letterSpacing="0.3em">
                         SECURED ACCESS
                     </Text>
@@ -69,7 +67,6 @@ export default function LoginMask() {
                     animation={isError ? "shake 0.4s ease-in-out" : "none"}
                     css={{
                         "&": {
-                            // Injecting the keyframes into the component's scope
                             "@layer base": {
                                 [shakeAnimation]: "",
                             },
@@ -98,9 +95,9 @@ export default function LoginMask() {
                         ))}
                     </PinInput.Control>
                 </PinInput.Root>
-                 <VStack>
+                <VStack>
                     <Text color="whiteAlpha.500" fontSize="sm">
-                       You have 5 attempts remaining.
+                        You have 5 attempts remaining.
                     </Text>
                 </VStack>
 

@@ -1,11 +1,12 @@
 "use client"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Center, Spinner } from "@chakra-ui/react"
 import { useColorModeValue } from "@/components/ui/color-mode" // Importing your custom hook
+import router from "next/router"
 
 export default function RootPage() {
-  const router = useRouter()
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   // Define theme-aware colors
   const bgColor = useColorModeValue("white", "gray.900")
