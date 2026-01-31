@@ -17,7 +17,7 @@ export default function MatrixRain() {
         if (!ctx) return
 
         const dpr = window.devicePixelRatio || 1
-        const fontSize = 20
+        const fontSize = 12
         let animationId: number
 
         const updateSize = () => {
@@ -43,7 +43,7 @@ export default function MatrixRain() {
                 // but also adjust for the interval creep
                 lastFrameTime = currentTime - (elapsed % fpsInterval);
 
-                ctx.fillStyle = "rgba(0, 0, 0, 0.15)"; 
+                ctx.fillStyle = "rgba(0, 0, 0, 0.25)"; 
                 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
                 ctx.fillStyle = "#0F0";
                 ctx.font = `${fontSize}px monospace`;

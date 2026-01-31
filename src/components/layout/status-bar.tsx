@@ -2,7 +2,9 @@
 import { Box, Container, HStack, Flex, Circle, Text } from "@chakra-ui/react";
 
 export default function StatusBar() {
-    return <Box bg="gray.100" borderBottom="1px" borderColor="gray.200" py={2}>
+    return <Box bg="gray.100"  _dark={{
+        bg: "#1A1D21", // Or use Chakra's built-in deep token
+      }} py={2}>
         <Container maxW="container.xl">
             <HStack>
                 <Flex align="center">
