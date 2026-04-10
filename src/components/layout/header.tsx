@@ -1,7 +1,7 @@
 "use client"
 
-import { Flex, Heading, Spacer, HStack, Link, Text, Button, Box, Container } from "@chakra-ui/react"
-import { ColorModeButton, useColorModeValue } from "@/components/ui/color-mode"
+import { Flex, HStack, Link, Text, Box, Container } from "@chakra-ui/react"
+import { ColorModeButton } from "@/components/ui/color-mode"
 import { useState, useEffect } from "react";
 import { LogoutButton } from "../features/logout-button";
 
@@ -17,30 +17,18 @@ export function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // This only runs on the client
     const session = localStorage.getItem("user_session");
     setIsLoggedIn(!!session);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user_session");
-    window.location.href = "/login";
-  };
-
-  // 🎨 Define dynamic colors based on theme
-  const bgColor = useColorModeValue("white", "#121418");
-  const borderColor = useColorModeValue("gray.200", "#1A1D21");
-  const textColor = useColorModeValue("gray.800", "white");
-  const linkColor = useColorModeValue("gray.600", "gray.400");
-
   return (
     <Box
       as="header"
-      bg={bgColor}
+      bg="app.bg.page"
       borderBottom="1px solid"
-      borderColor={borderColor}
+      borderColor="app.border"
       shadow="20px"
-      transition="background-color 0.2s" // Smooth transition during switch
+      transition="background-color 0.2s"
     >
       <Container maxW="container.xl" px="8" py="4">
         <Flex align="center" justify="space-between">
@@ -50,7 +38,7 @@ export function Header() {
               fontSize="xl"
               fontWeight="bold"
               letterSpacing="tight"
-              color={textColor}
+              color="app.fg"
             >
               CryptoX 🪙
             </Text>
@@ -62,7 +50,7 @@ export function Header() {
                   href={link.href}
                   fontSize="sm"
                   fontWeight="medium"
-                  color={linkColor}
+                  color="app.fg.muted"
                   _hover={{
                     color: "blue.500",
                     textDecoration: "none"

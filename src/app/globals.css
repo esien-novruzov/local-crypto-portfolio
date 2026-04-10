@@ -5,3 +5,13 @@
     75% { transform: translateX(-8px); }
     100% { transform: translateX(0); }
   }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#__next, [data-chakra-ui-portal-container] {
+  height: 100%;
+}
