@@ -26,8 +26,6 @@ const tableStyles = {
     "& tbody td": { borderBottomWidth: "0px" },
     "& thead tr": { borderBottomWidth: "0px", background: "transparent" },
     "& th": { borderBottomWidth: "0px", background: "transparent" },
-    "& th:first-of-type, & td:first-of-type": { paddingLeft: "var(--chakra-spacing-6)" },
-    "& th:last-of-type, & td:last-of-type": { paddingRight: "var(--chakra-spacing-6)" },
     "& table": { borderWidth: "0px" },
 };
 
