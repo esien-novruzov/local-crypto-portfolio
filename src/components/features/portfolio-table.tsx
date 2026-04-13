@@ -1,5 +1,24 @@
-import { Table, Input, Button, HStack, Text, Box, Badge, NumberInput } from "@chakra-ui/react";
+import { Table, Button, HStack, Text, Box } from "@chakra-ui/react";
+import { Trash2, Pencil } from "lucide-react";
 import { useState, useEffect } from "react";
+
+const rows = [
+    { name: "Bitcoin",  ticker: "BTC", price: "$98,421.20", change: "+1.2%", amount: "0.45 BTC", value: "$44,289.54", positive: true },
+    { name: "Ethereum", ticker: "ETH", price: "$3,241.80",  change: "+0.8%", amount: "12.3 ETH", value: "$39,874.14", positive: true },
+    { name: "Solana",   ticker: "SOL", price: "$182.40",    change: "-1.4%", amount: "102 SOL",  value: "$18,604.80", positive: false },
+    { name: "USDC",     ticker: "USDC",price: "$1.00",      change: "0.0%",  amount: "12,450 USDC", value: "$12,450.00", positive: true },
+    { name: "Chainlink",ticker: "LINK", price: "$14.82",    change: "+3.1%", amount: "450 LINK", value: "$6,669.00",  positive: true },
+    { name: "Avalanche",ticker: "AVAX", price: "$38.60",    change: "-0.7%", amount: "75 AVAX",  value: "$2,895.00",  positive: false },
+];
+
+const coinColors: Record<string, string> = {
+    BTC:  "#F7931A",
+    ETH:  "#627EEA",
+    SOL:  "#14F195",
+    USDC: "#2775CA",
+    LINK: "#375BD2",
+    AVAX: "#E84142",
+};
 
 export default function PortfolioTable() {
     const [isMounted, setIsMounted] = useState(false)
@@ -9,241 +28,108 @@ export default function PortfolioTable() {
     }, [])
 
     if (!isMounted) return null
+
     return (
-        <Box
-            borderRadius="xl"
-            overflow="hidden"
-            shadow="sm"
-            bg="app.bg.page"
-            borderColor="#2D333D"
-        >
+        <Box borderRadius="xl" overflow="hidden" shadow="sm" bg="app.bg.surface">
+            <Box px={6} pt={6} pb={4} borderBottom="1px solid" borderColor="app.border">
+                <Text fontWeight="bold" color="app.fg">Assets</Text>
+            </Box>
             <Table.Root
-                variant="line"
-                size="lg"
+                variant="outline"
+                size="md"
                 tableLayout="fixed"
                 css={{
-                    "& tbody tr:last-child": { borderBottomWidth: "0px" },
-                    "& tbody tr:last-child td": { borderBottomWidth: "0px" }
+                    "& tbody tr": { borderBottomWidth: "0px" },
+                    "& tbody td": { borderBottomWidth: "0px" },
+                    "& thead tr": { borderBottomWidth: "0px", background: "transparent" },
+                    "& th": { borderBottomWidth: "0px", background: "transparent" },
+                    "& th:first-of-type, & td:first-of-type": { paddingLeft: "var(--chakra-spacing-6)" },
+                    "& th:last-of-type, & td:last-of-type": { paddingRight: "var(--chakra-spacing-6)" },
+                    "& table": { borderWidth: "0px" },
                 }}
                 width="full"
-                m={8}
-            ><Table.Header
-                borderBottom="1px solid"
-                borderColor="#2D333D"
             >
+                <Table.Header bg="transparent">
                     <Table.Row>
-                        <Table.ColumnHeader color="fg.muted" fontWeight="medium" textAlign="left">Asset</Table.ColumnHeader>
-                        <Table.ColumnHeader color="fg.muted" fontWeight="medium" textAlign="end">Price</Table.ColumnHeader>
-                        <Table.ColumnHeader color="fg.muted" fontWeight="medium" textAlign="end">Change</Table.ColumnHeader>
-                        <Table.ColumnHeader color="fg.muted" fontWeight="medium" textAlign="end">Holdings</Table.ColumnHeader>
-                        <Table.ColumnHeader color="fg.muted" fontWeight="medium" textAlign="center">Action</Table.ColumnHeader>
+                        <Table.ColumnHeader color="app.fg.muted" fontWeight="medium" fontSize="xs" textAlign="left">Name</Table.ColumnHeader>
+                        <Table.ColumnHeader color="app.fg.muted" fontWeight="medium" fontSize="xs" textAlign="end">Price</Table.ColumnHeader>
+                        <Table.ColumnHeader color="app.fg.muted" fontWeight="medium" fontSize="xs" textAlign="end">24h %</Table.ColumnHeader>
+                        <Table.ColumnHeader color="app.fg.muted" fontWeight="medium" fontSize="xs" textAlign="end">Holdings</Table.ColumnHeader>
+                        <Table.ColumnHeader color="app.fg.muted" fontWeight="medium" fontSize="xs" textAlign="center">Actions</Table.ColumnHeader>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                    {/* 📋 Example: Bitcoin Rows*/}
-                    <Table.Row _hover={{ bg: "app.hover.bg" }} transition="background 0.2s" bg="transparent">
-                        <Table.Cell>
-                            <HStack gap="3">
-                                <Box boxSize="24px" bg="gray.200" rounded="full" display="flex" alignItems="center" justifyContent="center">
-                                    <Text fontSize="xs" fontWeight="bold">B</Text>
-                                </Box>
-                                <Box>
-                                    <Text fontWeight="semibold" fontSize="sm">Bitcoin</Text>
-                                    <Text fontSize="10px" color="gray.500" textTransform="uppercase">BTC</Text>
-                                </Box>
-                            </HStack>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end" fontFamily="mono" fontSize="sm">$98,421.20</Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Badge variant="plain" color="green.600" fontSize="xs">+1.2%</Badge>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Text fontSize="sm" fontWeight="medium">0.45 BTC</Text>
-                            <Text fontSize="xs" color="gray.400">$44,289.54</Text>
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                            <Button variant="ghost" size="xs" color="gray.400" _hover={{ color: "red.500" }}>
-                                Remove
-                            </Button>
-                        </Table.Cell>
-                    </Table.Row>
-
-                    <Table.Row _hover={{ bg: "app.hover.bg" }} transition="background 0.2s" bg="transparent">
-                        <Table.Cell>
-                            <HStack gap="3">
-                                <Box boxSize="24px" bg="gray.200" rounded="full" display="flex" alignItems="center" justifyContent="center">
-                                    <Text fontSize="xs" fontWeight="bold">B</Text>
-                                </Box>
-                                <Box>
-                                    <Text fontWeight="semibold" fontSize="sm">Bitcoin</Text>
-                                    <Text fontSize="10px" color="gray.500" textTransform="uppercase">BTC</Text>
-                                </Box>
-                            </HStack>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end" fontFamily="mono" fontSize="sm">$98,421.20</Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Badge variant="plain" color="green.600" fontSize="xs">+1.2%</Badge>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Text fontSize="sm" fontWeight="medium">0.45 BTC</Text>
-                            <Text fontSize="xs" color="gray.400">$44,289.54</Text>
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                            <Button variant="ghost" size="xs" color="gray.400" _hover={{ color: "red.500" }}>
-                                Remove
-                            </Button>
-                        </Table.Cell>
-                    </Table.Row>
-
-
-                    <Table.Row _hover={{
-                        // ☀️ Light Mode: A soft, solid grey
-                        bg: "gray.50",
-
-                        // 🌙 Dark Mode: A subtle, transparent white overlay
-                        _dark: {
-                            bg: "gray.900", // or "gray.800" if you want a solid color
-                        }
-                    }} transition="background 0.2s"
-                        bg="transparent"
-                    >
-                        <Table.Cell>
-                            <HStack gap="3">
-                                <Box boxSize="24px" bg="gray.200" rounded="full" display="flex" alignItems="center" justifyContent="center">
-                                    <Text fontSize="xs" fontWeight="bold">B</Text>
-                                </Box>
-                                <Box>
-                                    <Text fontWeight="semibold" fontSize="sm">Bitcoin</Text>
-                                    <Text fontSize="10px" color="gray.500" textTransform="uppercase">BTC</Text>
-                                </Box>
-                            </HStack>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end" fontFamily="mono" fontSize="sm">$98,421.20</Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Badge variant="plain" color="green.600" fontSize="xs">+1.2%</Badge>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Text fontSize="sm" fontWeight="medium">0.45 BTC</Text>
-                            <Text fontSize="xs" color="gray.400">$44,289.54</Text>
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                            <Button variant="ghost" size="xs" color="gray.400" _hover={{ color: "red.500" }}>
-                                Remove
-                            </Button>
-                        </Table.Cell>
-                    </Table.Row>
-
-                    <Table.Row _hover={{
-                        // ☀️ Light Mode: A soft, solid grey
-                        bg: "gray.50",
-
-                        // 🌙 Dark Mode: A subtle, transparent white overlay
-                        _dark: {
-                            bg: "gray.900", // or "gray.800" if you want a solid color
-                        }
-                    }} transition="background 0.2s"
-                        bg="transparent"
-                    >
-                        <Table.Cell>
-                            <HStack gap="3">
-                                <Box boxSize="24px" bg="gray.200" rounded="full" display="flex" alignItems="center" justifyContent="center">
-                                    <Text fontSize="xs" fontWeight="bold">B</Text>
-                                </Box>
-                                <Box>
-                                    <Text fontWeight="semibold" fontSize="sm">Bitcoin</Text>
-                                    <Text fontSize="10px" color="gray.500" textTransform="uppercase">BTC</Text>
-                                </Box>
-                            </HStack>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end" fontFamily="mono" fontSize="sm">$98,421.20</Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Badge variant="plain" color="green.600" fontSize="xs">+1.2%</Badge>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Text fontSize="sm" fontWeight="medium">0.45 BTC</Text>
-                            <Text fontSize="xs" color="gray.400">$44,289.54</Text>
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                            <Button variant="ghost" size="xs" color="gray.400" _hover={{ color: "red.500" }}>
-                                Remove
-                            </Button>
-                        </Table.Cell>
-                    </Table.Row>
-
-                    <Table.Row _hover={{
-                        // ☀️ Light Mode: A soft, solid grey
-                        bg: "gray.50",
-
-                        // 🌙 Dark Mode: A subtle, transparent white overlay
-                        _dark: {
-                            bg: "gray.900", // or "gray.800" if you want a solid color
-                        }
-                    }} transition="background 0.2s"
-                        bg="transparent"
-                    >
-                        <Table.Cell>
-                            <HStack gap="3">
-                                <Box boxSize="24px" bg="gray.200" rounded="full" display="flex" alignItems="center" justifyContent="center">
-                                    <Text fontSize="xs" fontWeight="bold">B</Text>
-                                </Box>
-                                <Box>
-                                    <Text fontWeight="semibold" fontSize="sm">Bitcoin</Text>
-                                    <Text fontSize="10px" color="gray.500" textTransform="uppercase">BTC</Text>
-                                </Box>
-                            </HStack>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end" fontFamily="mono" fontSize="sm">$98,421.20</Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Badge variant="plain" color="green.600" fontSize="xs">+1.2%</Badge>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Text fontSize="sm" fontWeight="medium">0.45 BTC</Text>
-                            <Text fontSize="xs" color="gray.400">$44,289.54</Text>
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                            <Button variant="ghost" size="xs" color="gray.400" _hover={{ color: "red.500" }}>
-                                Remove
-                            </Button>
-                        </Table.Cell>
-                    </Table.Row>
-
-                    <Table.Row _hover={{
-                        // ☀️ Light Mode: A soft, solid grey
-                        bg: "gray.50",
-
-                        // 🌙 Dark Mode: A subtle, transparent white overlay
-                        _dark: {
-                            bg: "gray.900", // or "gray.800" if you want a solid color
-                        }
-                    }} transition="background 0.2s"
-                        bg="transparent"
-                    >
-                        <Table.Cell>
-                            <HStack gap="3">
-                                <Box boxSize="24px" bg="gray.200" rounded="full" display="flex" alignItems="center" justifyContent="center">
-                                    <Text fontSize="xs" fontWeight="bold">B</Text>
-                                </Box>
-                                <Box>
-                                    <Text fontWeight="semibold" fontSize="sm">Bitcoin</Text>
-                                    <Text fontSize="10px" color="gray.500" textTransform="uppercase">BTC</Text>
-                                </Box>
-                            </HStack>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end" fontFamily="mono" fontSize="sm">$98,421.20</Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Badge variant="plain" color="green.600" fontSize="xs">+1.2%</Badge>
-                        </Table.Cell>
-                        <Table.Cell textAlign="end">
-                            <Text fontSize="sm" fontWeight="medium">0.45 BTC</Text>
-                            <Text fontSize="xs" color="gray.400">$44,289.54</Text>
-                        </Table.Cell>
-                        <Table.Cell textAlign="center">
-                            <Button variant="ghost" size="xs" color="gray.400" _hover={{ color: "red.500" }}>
-                                Remove
-                            </Button>
-                        </Table.Cell>
-                    </Table.Row>
+                    {rows.map((row) => (
+                        <Table.Row
+                            key={row.ticker}
+                            bg="transparent"
+                            _hover={{ bg: "app.hover.bg" }}
+                            transition="background 0.2s"
+                        >
+                            <Table.Cell>
+                                <HStack gap="3">
+                                    <Box
+                                        boxSize="32px"
+                                        bg={coinColors[row.ticker] ?? "app.border"}
+                                        rounded="full"
+                                        display="flex"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        flexShrink={0}
+                                    >
+                                        <Text fontSize="xs" fontWeight="bold" color="white">
+                                            {row.ticker[0]}
+                                        </Text>
+                                    </Box>
+                                    <Box>
+                                        <Text fontWeight="semibold" fontSize="sm" color="app.fg">{row.name}</Text>
+                                        <Text fontSize="xs" color="app.fg.muted">{row.ticker}</Text>
+                                    </Box>
+                                </HStack>
+                            </Table.Cell>
+                            <Table.Cell textAlign="end" fontFamily="mono" fontSize="sm" fontWeight="medium" color="app.fg">
+                                {row.price}
+                            </Table.Cell>
+                            <Table.Cell textAlign="end">
+                                <Text
+                                    fontSize="sm"
+                                    fontWeight="medium"
+                                    color={row.positive ? "green.500" : "red.400"}
+                                >
+                                    {row.change}
+                                </Text>
+                            </Table.Cell>
+                            <Table.Cell textAlign="end">
+                                <Text fontSize="sm" fontWeight="medium" color="app.fg">{row.amount}</Text>
+                                <Text fontSize="xs" color="app.fg.muted">{row.value}</Text>
+                            </Table.Cell>
+                            <Table.Cell textAlign="center">
+                                <HStack gap={1} justify="center">
+                                    <Button
+                                        variant="ghost"
+                                        size="xs"
+                                        color="app.fg.muted"
+                                        _hover={{ color: "app.fg", bg: "transparent" }}
+                                        aria-label="Edit asset"
+                                        p={1}
+                                    >
+                                        <Pencil size={14} />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="xs"
+                                        color="app.fg.muted"
+                                        _hover={{ color: "red.400", bg: "transparent" }}
+                                        aria-label="Remove asset"
+                                        p={1}
+                                    >
+                                        <Trash2 size={14} />
+                                    </Button>
+                                </HStack>
+                            </Table.Cell>
+                        </Table.Row>
+                    ))}
                 </Table.Body>
             </Table.Root>
         </Box>

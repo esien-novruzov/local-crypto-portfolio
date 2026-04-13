@@ -7,12 +7,12 @@ export default function StatusBar() {
             <HStack>
                 <Flex align="center">
                     <Circle size="8px" bg="green.400" mr={2} />
-                    <Text fontSize="xs" color="gray.600" fontWeight="medium">
+                    <Text fontSize="xs" color="app.fg" fontWeight="medium">
                         System Online
                     </Text>
                 </Flex>
-                <Text fontSize="xs" color="gray.300">|</Text>
-                <Text fontSize="xs" color="gray.500">
+                <Text fontSize="xs" color="app.fg.muted">|</Text>
+                <Text fontSize="xs" color="app.fg.muted">
                     Last update: Just now
                 </Text>
             </HStack>

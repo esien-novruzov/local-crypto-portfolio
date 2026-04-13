@@ -69,7 +69,7 @@ export default function DashboardPage() {
                 gap={{ base: "4", md: "0" }} // Add space between balance and buttons on mobile
               >
                 <Box>
-                  <Text color="gray.400" fontSize="sm" fontWeight="medium">Total Balance</Text>
+                  <Text color="app.fg.muted" fontSize="sm" fontWeight="medium">Total Balance</Text>
                   <HStack align="baseline" gap="2">
                     <Text fontSize={{ base: "2xl", md: "3xl" }} fontWeight="bold" color="app.fg.balance">
                       $124,592.00
@@ -94,10 +94,10 @@ export default function DashboardPage() {
 
               {/* Portfolio Allocation Card */}
               <Box p={6} bg="app.bg.surface" rounded="xl" shadow="sm">
-                <Text color="gray.700" fontWeight="bold" mb={6}>Your portfolio allocation</Text>
+                <Text color="app.fg" fontWeight="bold" mb={6}>Your portfolio allocation</Text>
 
                 {/* Integrated Chart & Labels Box */}
-                <Box p={6} rounded="xl" color="#303432">
+                <Box p={6} rounded="xl" color="app.fg">
 
                   <Box height="180px">
                     <ResponsiveContainer width="100%" height="100%">
@@ -124,7 +124,7 @@ export default function DashboardPage() {
                         <Box w="3" h="3" rounded="full" bg={item.color} flexShrink={0} />
                         <Box>
                           <Text fontSize="xs" fontWeight="bold">{item.name}</Text>
-                          <Text color="gray.500" fontSize="10px">{item.value}%</Text>
+                          <Text color="app.fg.muted" fontSize="10px">{item.value}%</Text>
                         </Box>
                       </HStack>
                     ))}
@@ -134,16 +134,16 @@ export default function DashboardPage() {
 
               {/* Add Transaction Card */}
               <Box p={6} bg="app.bg.surface" rounded="xl" shadow="sm">
-                <Text color="gray.700" fontWeight="bold" mb={4}>Add a transaction</Text>
+                <Text color="app.fg" fontWeight="bold" mb={4}>Add a transaction</Text>
                 <Box>
                   <InputElement placement="start">
-                    <SearchIcon color="gray.400" />
+                    <SearchIcon color="app.fg.muted" />
                   </InputElement>
                   <Input
                     placeholder="Search symbol..."
                     ps="10"
                     name=""
-                    bg="gray.50"
+                    bg="app.bg.input"
                     border="none"
                   />
                 </Box>

@@ -1,48 +1,66 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
 
+/**
+ * Dark palette — "Slate Dark"
+ * Inspired by Linear, GitHub Dark, Vercel, Coinbase.
+ * The world's best dark UIs share this DNA: deep cool blue-black base,
+ * subtle elevation via blue-gray tints, high-contrast text.
+ *
+ * Elevation model:
+ *   Header/nav  #090C12  ← deepest, anchors the chrome
+ *   Canvas      #0F1117  ← page body (GitHub dark signature tone)
+ *   Cards       #161C28  ← elevated surface (+blue tint adds depth)
+ *   Hover       #1C2333  ← interactive layer
+ *
+ * WCAG contrast (text on canvas #0F1117):
+ *   Primary  #E6ECF4  →  15.8:1  (AAA)
+ *   Muted    #8896AA  →   6.3:1  (AA)
+ *
+ * Light palette — "Classic Clean"
+ * Inspired by Linear, Vercel. Neutral grays, white cards, crisp and timeless.
+ *   Canvas      #F7F7F7  ← neutral light gray page body
+ *   Header/nav  #FFFFFF  ← white chrome
+ *   Cards       #FFFFFF  ← white, elevated above canvas
+ *   Hover       #F0F0F0  ← slightly darker than canvas
+ */
+
 const config = defineConfig({
   theme: {
     semanticTokens: {
       colors: {
         // --- Backgrounds ---
-        // Page-level bg: header, table cards
         "app.bg.page": {
-          value: { _light: "white", _dark: "#121418" },
+          value: { _light: "#FFFFFF", _dark: "#090C12" },
         },
-        // Surface bg: cards, panels
         "app.bg.surface": {
-          value: { _light: "gray.100", _dark: "#1A1D21" },
+          value: { _light: "#FFFFFF", _dark: "#161C28" },
         },
-        // Canvas bg: page body
         "app.bg.canvas": {
-          value: { _light: "gray.50", _dark: "#303432" },
+          value: { _light: "#F7F7F7", _dark: "#0F1117" },
         },
-        // Input bg
         "app.bg.input": {
-          value: { _light: "gray.50", _dark: "#0D0F12" },
+          value: { _light: "#F2F2F2", _dark: "#0C1018" },
         },
 
         // --- Borders ---
         "app.border": {
-          value: { _light: "gray.200", _dark: "#1A1D21" },
+          value: { _light: "#E5E5E5", _dark: "#1E2A3A" },
         },
 
         // --- Text ---
         "app.fg": {
-          value: { _light: "gray.800", _dark: "white" },
+          value: { _light: "#1E293B", _dark: "#E6ECF4" },
         },
         "app.fg.muted": {
-          value: { _light: "gray.600", _dark: "gray.400" },
+          value: { _light: "#475569", _dark: "#8896AA" },
         },
-        // Balance/headline number text
         "app.fg.balance": {
-          value: { _light: "#303432", _dark: "white" },
+          value: { _light: "#1E293B", _dark: "#E6ECF4" },
         },
 
         // --- Interactive ---
-        // Row hover background
         "app.hover.bg": {
-          value: { _light: "gray.50", _dark: "#121418" },
+          value: { _light: "#F0F0F0", _dark: "#1C2333" },
         },
       },
     },

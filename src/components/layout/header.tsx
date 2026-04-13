@@ -2,7 +2,7 @@
 
 import { Flex, HStack, Link, Text, Box, Container } from "@chakra-ui/react"
 import { ColorModeButton } from "@/components/ui/color-mode"
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { LogoutButton } from "../features/logout-button";
 
 const navLinks = [
@@ -16,7 +16,7 @@ const navLinks = [
 export function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const session = localStorage.getItem("user_session");
     setIsLoggedIn(!!session);
   }, []);
@@ -24,7 +24,7 @@ export function Header() {
   return (
     <Box
       as="header"
-      bg="app.bg.page"
+      bg="app.bg.surface"
       borderBottom="1px solid"
       borderColor="app.border"
       shadow="20px"
