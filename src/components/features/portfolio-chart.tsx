@@ -11,12 +11,7 @@ export default function MainChart({ data }) {
   ]);
 
   return (
-    <Box w="full" 
-    flex="1" // This says "take up all remaining vertical space"
-  display="flex" // ⬅️ REQUIRED for flex="1" to work in children
-  flexDirection="column" // ⬅️ REQUIRED
- minHeight="300px"// ⬅️ The "Flexbox hack" to allow children to shrink/grow correctly
-    css={{
+    <Box w="full" flex="1" position="relative" minH="300px" css={{
       "& *:focus": {
         outline: "none !important",
         boxShadow: "none !important",
@@ -29,6 +24,7 @@ export default function MainChart({ data }) {
       }
     }}
     >
+      <Box position="absolute" inset="0">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data} >
           <defs>
@@ -76,7 +72,8 @@ export default function MainChart({ data }) {
           />
         </AreaChart>
       </ResponsiveContainer>
-    </Box >
+      </Box>
+    </Box>
   );
 }
 const CustomTooltip = ({ active, payload }: any) => {

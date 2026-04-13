@@ -6,11 +6,14 @@
     100% { transform: translateX(0); }
   }
 
-html, body {
+html {
+  overflow-y: scroll;
+}
+
+body {
   height: 100%;
   margin: 0;
   padding: 0;
-  scrollbar-gutter: stable;
 }
 
 #__next, [data-chakra-ui-portal-container] {
